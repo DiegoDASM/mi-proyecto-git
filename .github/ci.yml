@@ -1,0 +1,23 @@
+name: CI - Gestion de la configuracion de software
+
+on:
+  push:
+    branches: [ "master" ] 
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar existencia de los archivos
+        run: |          
+          if [ -f "index.html" ] && [ -f "main.js" ]; then
+            echo "Archivos 'index.html' y 'main.js' encontrados."
+            echo "Validación de código de manera exitosa."
+          else
+            echo "Error: No se encontró 'index.html' o 'main.js'."
+            exit 1 # Termina el flujo con un error.
+          fi
